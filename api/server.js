@@ -10,7 +10,7 @@ server.post('/api/users', async (req, res) => {
     const { name, bio } = req.body;
     try {
         if (!name || !bio) {
-            res.status(404).json({ message: "Please provide name and bio for the user" })
+            res.status(400).json({ message: "Please provide name and bio for the user" })
         } else {
             const newUser = await User.insert({ name, bio });
             console.log("New user created: ", newUser);
