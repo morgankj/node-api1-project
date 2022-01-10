@@ -14,11 +14,20 @@ server.post('/api/users', async (req, res) => {
         } else {
             const newUser = await User.insert({ name, bio });
             console.log("New user created: ", newUser);
-            res.status(200).json(newUser);
+            res.status(201).json(newUser);
         }
         
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: "There was an error while saving the user to the database" });
+    }
+})
+
+server.get('/api/users', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ message: "The users information could not be retrieved" });
     }
 })
 
